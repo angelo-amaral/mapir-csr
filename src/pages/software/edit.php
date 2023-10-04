@@ -36,8 +36,19 @@ $reqImpacto = findImpactoReqSwAction($conn, $_GET['id']);
 				</td>
 			</tr>
 			<tr>
-				<td class="cell" colspan="2">
-					<small><b>Estratégia para aceitação de mudanças: <?php if($reqImpacto['impacto_potencial'] > 8) echo "Recusar"; else if($reqImpacto['impacto_potencial'] < 3) echo "Aceitar"; else echo "Analisar Impacto"; ?></b></small>
+				<?php 
+				if($reqImpacto['impacto_potencial'] > 8) { 
+					$cor='text-error'; 
+					$estrategia='Recusar'; 
+				} else if($reqImpacto['impacto_potencial'] < 3) { 
+					$cor='text-success'; 
+					$estrategia='Aceitar'; 
+				}else{ 
+					$cor='cell'; 
+					$estrategia='Analisar Impacto'; 				
+				}?>
+				<td class="<?=$cor?>" colspan="2">		
+					<small><b>Estratégia para aceitação de mudanças: <?=$estrategia?></b></small>
 				</td>
 			</tr>
 			<tr>

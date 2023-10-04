@@ -22,12 +22,15 @@ $reqs = readReqSwAction($conn);
 			<th align="left">ID</th>
 			<th align="left">Titulo</th>
 			<th align="left">Story Points</th>
+			<th align="left">Impacto Potencial</th>
 		</tr>
 		<?php foreach($reqs as $row): ?>
+		<?php if($row['impacto_potencial'] > 8) $cor='text-error'; else if($row['impacto_potencial'] < 3) $cor='text-success'; else $cor='cell'; ?>
 		<tr>
 			<td class="cell"><?=htmlspecialchars($row['ID_Req_Sw'])?></td>
 			<td class="cell"><?=htmlspecialchars($row['Titulo'])?></td>
 			<td class="cell"><?=htmlspecialchars($row['story_points'])?></td>
+			<td class="<?=$cor?>"><?=htmlspecialchars($row['impacto_potencial'])?></td>
 			<td>
 				<a class="btn btn-primary text-white" href="../../pages/sw_sys/edit.php?id=<?=$row['ID_Req_Sw']?>">Relacionar</a>
 			</td>

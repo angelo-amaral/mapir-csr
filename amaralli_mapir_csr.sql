@@ -173,4 +173,8 @@ ALTER TABLE `m_requisito_sistema_usuario`
 ALTER TABLE `m_requisito_software_sistema`
   ADD CONSTRAINT `fk_req_sw_sis_sis` FOREIGN KEY (`ID_Req_Sis`) REFERENCES `m_requisito_sistema` (`ID_Req_Sis`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_req_sw_sis_sw` FOREIGN KEY (`ID_Req_Sw`) REFERENCES `m_requisito_software` (`ID_Req_Sw`) ON UPDATE CASCADE;
+  
+  
+Create View vw_requisito_software_impacto AS SELECT a.ID_Req_Sw, a.Titulo, a.story_points, Round((a.story_points + (Select sum(e.story_points) From m_requisito_software_sistema b INNER JOIN m_requisito_sistema c on c.ID_Req_Sis = b.ID_Req_Sis INNER JOIN m_requisito_software_sistema d on d.ID_Req_Sis = c.ID_Req_Sis INNER JOIN m_requisito_software e ON e.ID_Req_Sw = d.ID_Req_Sw and e.ID_Req_Sw <> a.ID_Req_Sw where b.ID_Req_Sw = a.ID_Req_Sw)) / (select COUNT(ID_Req_Sw) from m_requisito_software), 1) as impacto_potencial FROM m_requisito_software a order by impacto_potencial desc, story_points desc;  
+  
 COMMIT;

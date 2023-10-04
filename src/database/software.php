@@ -25,6 +25,7 @@ function findReqSwDb($conn, $id) {
 	$ReqSw;
 
 	$sql = "SELECT * FROM m_requisito_software WHERE ID_Req_Sw = ?";
+//	$sql = "SELECT * FROM vw_requisito_software_impacto WHERE ID_Req_Sw = ?";
 	$stmt = mysqli_stmt_init($conn);
 
 	if(!mysqli_stmt_prepare($stmt, $sql))
@@ -60,7 +61,8 @@ function createReqSwDb($conn, $id_Req_Sw, $titulo, $story_points) {
 function readReqSwDb($conn) {
     $ReqSws = [];
 
-	$sql = "SELECT * FROM m_requisito_software";
+//	$sql = "SELECT * FROM m_requisito_software";
+	$sql = "SELECT * FROM vw_requisito_software_impacto";
 	$result = mysqli_query($conn, $sql);
 
 	$result_check = mysqli_num_rows($result);
